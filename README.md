@@ -15,4 +15,5 @@ The purpose of this project is the implementation of a mobile online store app u
 - [Redux Saga](https://redux-saga.js.org/) as a library that aims to make application side effects  
 - [NodeJS](https://nodejs.org/en/) as an open source server environment  
 - [Express](https://expressjs.com/) as Node.js web application framework  
-- [MongoDB](https://www.mongodb.com/) or [MySQL](mysql.com) as a database  
+- [MongoDB](https://www.mongodb.com/) as a database  
+- [Mongoose](https://mongoosejs.com/) as an ORM (Object-Relational Mapper) for MondoDB  
