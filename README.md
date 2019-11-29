@@ -2,9 +2,7 @@
 
 ***The purpose of the project:*** to deepen knowledge in the field React Native technologies, to develop and implement a mobile application "online store" according to the [GitLab course instructions](https://gitlab.labranet.jamk.fi/TTOW0635/Mobile-Project).  
 
-The desktop version of the project was implemented as part of a web project and is available at ***[my GitHub Pages]***(https://sudexp.github.io/online-store/build/).  
-
-This version was realized using JavaScript library for building user interfaces [ReactJS](https://reactjs.org/) and based on ***[fluidui prototypes](https://www.fluidui.com/editor/live/preview/cF9Ddm5UcTRCVjlTSDdoV3RzYWRwMDh5eEdsbXpvZFZweQ==)***.  
+The desktop version of the project was implemented as part of a web project and is available at ***[my GitHub Pages](https://sudexp.github.io/online-store/build/)***. It was realized using JavaScript library for building user interfaces [ReactJS](https://reactjs.org/) and based on ***[fluidui prototypes](https://www.fluidui.com/editor/live/preview/cF9Ddm5UcTRCVjlTSDdoV3RzYWRwMDh5eEdsbXpvZFZweQ==)***.  
 
 The purpose of this project is the implementation of a *mobile online store app* using the following technologies:  
 
