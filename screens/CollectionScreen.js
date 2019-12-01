@@ -12,7 +12,6 @@ const CollectionScreen = props => {
         keyExtractor={item => item.brand}
         renderItem={({ item }) => <Text>{item.brand}</Text>}
       />
-      {/* <Text>Hello!</Text> */}
     </SafeAreaView>
   );
 };
