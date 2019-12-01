@@ -3,23 +3,30 @@ import { SafeAreaView, FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import Item from '../components/Item';
-import Colors from '../constants/Colors';
+// import Colors from '../constants/Colors';
 
-const CollectionScreen = props => {
+const CollectionScreen = ({ navigation }) => {
   const items = useSelector(state => state.items.availableItems);
-  console.log(items);
+  // console.log(items);
+  console.log('[navigation]: ', navigation);
   return (
     <SafeAreaView>
       <FlatList
         data={items}
-        keyExtractor={item => item.brand}
+        keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <Item
             image={item.imgUrl}
             brand={item.brand}
             price={item.price}
-            onViewDetail={() => console.log('viewDetail')}
-            onAddToCart={() => console.log('addToCart')}
+            viewDetails={() => {
+              console.log('viewDetails');
+              navigation.navigate('ItemDetail', {
+                itemId: item.id,
+                itemBrand: item.brand,
+              });
+            }}
+            addToCart={() => console.log('addToCart')}
           />
         )}
       />

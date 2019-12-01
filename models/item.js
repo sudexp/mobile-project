@@ -1,5 +1,6 @@
 class Item {
   constructor(
+    id,
     brand,
     price,
     color,
@@ -8,6 +9,7 @@ class Item {
     description,
     imgUrl,
   ) {
+    this.id = id;
     this.brand = brand;
     this.price = price;
     this.color = color;

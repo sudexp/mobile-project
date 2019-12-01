@@ -2,6 +2,7 @@ import Item from '../models/item';
 
 const Items = [
   new Item(
+    '1',
     'Ecco Aurora',
     100,
     'Blue',
@@ -11,6 +12,7 @@ const Items = [
     'https://student.labranet.jamk.fi/~M0394/ttms0500/online-store/images/thumbnail.jpg',
   ),
   new Item(
+    '2',
     'Bugatti Tazzio',
     115,
     'Silver',
@@ -20,6 +22,7 @@ const Items = [
     'https://student.labranet.jamk.fi/~M0394/ttms0500/online-store/images/thumbnail-3.jpg',
   ),
   new Item(
+    '3',
     'Zenden Casual',
     60,
     'Blue',
@@ -29,30 +32,23 @@ const Items = [
     'https://student.labranet.jamk.fi/~M0394/ttms0500/online-store/images/thumbnail-5.jpg',
   ),
   new Item(
+    '4',
     'Clarks Weaver',
     75,
     'Brown',
     'Suede leather',
     'Laces',
     'A slip-resistant outsole keeps you safe on the jobsite, and the premium full-grain leather cleans up for the office.',
-    'https://student.labranet.jamk.fi/~M0394/ttms0500/online-store/images/thumbnail-5.jpg',
+    'https://student.labranet.jamk.fi/~M0394/ttms0500/online-store/images/thumbnail-4.jpg',
   ),
   new Item(
+    '5',
     'Marwell Lace-Up',
     80,
     'Gray',
     'Textile',
     'Laces',
     'This waterproof mens athletic shoe is slip and oil resistant with a rubber outsole. Featuring a non - metallic ASTM rated composite toe with leather and breathable mesh upper, the Eastfield is the perfect shoe for any off-the-bike activity.',
-    'https://student.labranet.jamk.fi/~M0394/ttms0500/online-store/images/thumbnail-4.jpg',
-  ),
-  new Item(
-    'Skechers Burst Atletics',
-    110,
-    'Black',
-    'Synthetic',
-    'Laces',
-    'Afordable athletic shoes for outside. With its light weight you will be sorry for using worse.',
     'https://student.labranet.jamk.fi/~M0394/ttms0500/online-store/images/thumbnail-2.jpg',
   ),
 ];
