@@ -29,7 +29,7 @@ const Item = ({ image, brand, price, viewDetails, addToCart }) => {
             </View>
             <View style={styles.details}>
               <Text style={styles.brand}>{brand}</Text>
-              <Text style={styles.price}>${price.toFixed(2)}</Text>
+              <Text style={styles.price}>€{price.toFixed(2)}</Text>
             </View>
             <View style={styles.actions}>
               <Button

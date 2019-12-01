@@ -3,12 +3,11 @@ import { SafeAreaView, FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import Item from '../components/Item';
-// import Colors from '../constants/Colors';
 
 const CollectionScreen = ({ navigation }) => {
   const items = useSelector(state => state.items.availableItems);
-  // console.log(items);
-  console.log('[navigation]: ', navigation);
+  // console.log('[items]: ', items);
+  // console.log('[navigation]: ', navigation);
   return (
     <SafeAreaView>
       <FlatList
@@ -20,13 +19,13 @@ const CollectionScreen = ({ navigation }) => {
             brand={item.brand}
             price={item.price}
             viewDetails={() => {
-              console.log('viewDetails');
+              // console.log('viewDetails pressed');
               navigation.navigate('ItemDetail', {
                 itemId: item.id,
                 itemBrand: item.brand,
               });
             }}
-            addToCart={() => console.log('addToCart')}
+            addToCart={() => console.log('addToCart pressed')}
           />
         )}
       />
@@ -36,7 +35,6 @@ const CollectionScreen = ({ navigation }) => {
 
 CollectionScreen.navigationOptions = {
   headerTitle: 'Collection',
-  // headerTintColor: Colors.orange,
 };
 
 export default CollectionScreen;
