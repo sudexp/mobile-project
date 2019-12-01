@@ -7,4 +7,5 @@ export default {
   lightgrey: '#d3d3d3',
   valid: '#008000',
   notvalid: '#b22222',
+  black: '#000000',
 };
