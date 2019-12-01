@@ -1,14 +1,24 @@
 import React from 'react';
-import { SafeAreaView, Text, StyleSheet } from 'react-native';
+import { SafeAreaView, FlatList, Text } from 'react-native';
+import { useSelector } from 'react-redux';
 
-const CollectionScreen = () => (
-  <>
+const CollectionScreen = props => {
+  const items = useSelector(state => state.items.availableItems);
+  console.log(items);
+  return (
     <SafeAreaView>
-      <Text>CollectionScreen</Text>
+      <FlatList
+        data={items}
+        keyExtractor={item => item.brand}
+        renderItem={({ item }) => <Text>{item.brand}</Text>}
+      />
+      {/* <Text>Hello!</Text> */}
     </SafeAreaView>
-  </>
-);
+  );
+};
 
-const styles = StyleSheet.create({});
+CollectionScreen.navigationOptions = {
+  headerTitle: 'CollectionScreen',
+};
 
 export default CollectionScreen;
