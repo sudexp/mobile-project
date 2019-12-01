@@ -9,9 +9,10 @@ import {
   Platform,
   StyleSheet,
 } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Colors from '../constants/Colors';
+import * as cartActions from '../store/actions/cart';
 
 const ItemDetailScreen = ({ navigation }) => {
   const itemId = navigation.getParam('itemId');
@@ -22,6 +23,7 @@ const ItemDetailScreen = ({ navigation }) => {
   );
   // console.log('[selectedItem]: ', selectedItem);
   // console.log('[imageUrl]: ', selectedItem.imgUrl);
+  const dispatch = useDispatch();
 
   return (
     <SafeAreaView>
@@ -31,7 +33,9 @@ const ItemDetailScreen = ({ navigation }) => {
           <Button
             color={Platform.OS === 'android' ? Colors.blue : Colors.orange}
             title="Add to Cart"
-            onPress={() => {}}
+            onPress={() => {
+              dispatch(cartActions.addToCart(selectedItem));
+            }}
           />
         </View>
         <Text style={styles.price}>€{selectedItem.price.toFixed(2)}</Text>

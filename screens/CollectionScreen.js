@@ -1,13 +1,16 @@
 import React from 'react';
 import { SafeAreaView, FlatList } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Item from '../components/Item';
+import * as cartActions from '../store/actions/cart';
 
 const CollectionScreen = ({ navigation }) => {
   const items = useSelector(state => state.items.availableItems);
   // console.log('[items]: ', items);
   // console.log('[navigation]: ', navigation);
+  const dispatch = useDispatch();
+
   return (
     <SafeAreaView>
       <FlatList
@@ -25,7 +28,10 @@ const CollectionScreen = ({ navigation }) => {
                 itemBrand: item.brand,
               });
             }}
-            addToCart={() => console.log('addToCart pressed')}
+            addToCart={() => {
+              // console.log('addToCart pressed');
+              dispatch(cartActions.addToCart(item));
+            }}
           />
         )}
       />
