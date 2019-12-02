@@ -7,17 +7,23 @@ import {
   Button,
   StyleSheet,
 } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Colors from '../constants/Colors';
 import CartItem from '../components/CartItem';
+import { removeFromCart } from '../store/actions/cart';
 
 const CartScreen = () => {
   const cartTotalPrice = useSelector(state => state.cart.totalPrice);
   const cartItems = useSelector(state => state.cart.items);
-  // console.log('[cartItems]: ', cartItems);
-  const cartItemsArray = Object.keys(cartItems).map(i => cartItems[i]);
-  // console.log('[cartItemsArray]: ', cartItemsArray);
+  console.log('[cartItems]: ', cartItems);
+  const cartItemsArray = Object.keys(cartItems).map(i => {
+    // cartItems[i].itemId = i
+    // return cartItems[i]
+    return { ...cartItems[i], itemId: i };
+  });
+  console.log('[cartItemsArray]: ', cartItemsArray);
+  const dispatch = useDispatch();
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -34,15 +40,18 @@ const CartScreen = () => {
       </View>
       <FlatList
         data={cartItemsArray}
-        keyExtractor={item => item.itemBrand}
-        renderItem={({ item }) => (
-          <CartItem
-            quantity={item.quantity}
-            brand={item.itemBrand}
-            price={item.sum}
-            onRemove={() => console.log('remove button is pressed')}
-          />
-        )}
+        keyExtractor={item => item.itemId}
+        renderItem={({ item }) => {
+          // console.log('[item]: ', item);
+          return (
+            <CartItem
+              quantity={item.quantity}
+              brand={item.itemBrand}
+              price={item.sum}
+              onRemove={() => dispatch(removeFromCart(item.itemId))}
+            />
+          );
+        }}
       />
     </SafeAreaView>
   );
@@ -67,7 +76,7 @@ const styles = StyleSheet.create({
     shadowColor: Colors.black,
     shadowOpacity: 0.26,
     shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 8,
+    shadowRadius: 6,
     elevation: 5,
     borderRadius: 10,
     backgroundColor: Colors.white,

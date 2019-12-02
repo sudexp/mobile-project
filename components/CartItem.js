@@ -22,8 +22,9 @@ const CartItem = ({ quantity, brand, price, onRemove }) => {
   return (
     <View style={styles.container}>
       <View style={styles.itemData}>
-        <Text style={styles.quantity}>{quantity} </Text>
-        <Text style={styles.mainText}>{brand}</Text>
+        <Text style={styles.mainText}>{brand} </Text>
+        <Text style={styles.quantity}> x </Text>
+        <Text style={styles.quantity}>{quantity}</Text>
       </View>
       <View style={styles.itemData}>
         <Text style={styles.price}>€{price.toFixed(2)}</Text>
@@ -45,7 +46,7 @@ const CartItem = ({ quantity, brand, price, onRemove }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 20,
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   quantity: {
-    color: '#888',
+    color: Colors.grey,
     fontSize: 16,
   },
   price: {
