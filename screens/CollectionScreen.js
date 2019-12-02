@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import ItemDetail from '../components/Item';
-import * as cartActions from '../store/actions/cart';
+import { addToCart } from '../store/actions/cart';
 import CartButton from '../components/CartButton';
 
 const CollectionScreen = ({ navigation }) => {
@@ -32,7 +32,7 @@ const CollectionScreen = ({ navigation }) => {
             }}
             addToCart={() => {
               // console.log('addToCart pressed');
-              dispatch(cartActions.addToCart(item));
+              dispatch(addToCart(item));
             }}
           />
         )}
@@ -41,17 +41,19 @@ const CollectionScreen = ({ navigation }) => {
   );
 };
 
-CollectionScreen.navigationOptions = {
-  headerTitle: 'Collection',
-  headerRight: (
-    <HeaderButtons HeaderButtonComponent={CartButton}>
-      <Item
-        title="cart"
-        iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
-        onPress={() => console.log('cart button is pressed')}
-      />
-    </HeaderButtons>
-  ),
+CollectionScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerTitle: 'Collection',
+    headerRight: (
+      <HeaderButtons HeaderButtonComponent={CartButton}>
+        <Item
+          title="cart"
+          iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
+          onPress={() => navigation.navigate('Cart')}
+        />
+      </HeaderButtons>
+    ),
+  };
 };
 
 export default CollectionScreen;
