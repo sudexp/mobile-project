@@ -10,9 +10,11 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import Colors from '../constants/Colors';
-import * as cartActions from '../store/actions/cart';
+import { addToCart } from '../store/actions/cart';
+import CartButton from '../components/CartButton';
 
 const ItemDetailScreen = ({ navigation }) => {
   const itemId = navigation.getParam('itemId');
@@ -34,7 +36,7 @@ const ItemDetailScreen = ({ navigation }) => {
             color={Platform.OS === 'android' ? Colors.blue : Colors.orange}
             title="Add to Cart"
             onPress={() => {
-              dispatch(cartActions.addToCart(selectedItem));
+              dispatch(addToCart(selectedItem));
             }}
           />
         </View>
@@ -48,6 +50,15 @@ const ItemDetailScreen = ({ navigation }) => {
 ItemDetailScreen.navigationOptions = ({ navigation }) => {
   return {
     headerTitle: navigation.getParam('itemBrand'),
+    headerRight: (
+      <HeaderButtons HeaderButtonComponent={CartButton}>
+        <Item
+          title="cart"
+          iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
+          onPress={() => navigation.navigate('Cart')}
+        />
+      </HeaderButtons>
+    ),
   };
 };
 

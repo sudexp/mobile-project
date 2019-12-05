@@ -5,11 +5,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import itemsReducer from './store/reducers/items';
 import cartReducer from './store/reducers/cart';
+import ordersReducer from './store/reducers/orders';
+
 import StoreNavigator from './navigation/StoreNavigator';
 
 const rootReducer = combineReducers({
   items: itemsReducer,
   cart: cartReducer,
+  orders: ordersReducer,
 });
 
 // remove composeWithDevTools() before deploying app

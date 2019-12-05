@@ -11,9 +11,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Colors from '../constants/Colors';
 import CartItem from '../components/CartItem';
-import { removeFromCart } from '../store/actions/cart';
+import { removeFromCart, clearCart } from '../store/actions/cart';
+import { addOrder } from '../store/actions/orders';
 
-const CartScreen = () => {
+const CartScreen = ({ navigation }) => {
   const cartTotalPrice = useSelector(state => state.cart.totalPrice);
   const cartItems = useSelector(state => state.cart.items);
   console.log('[cartItems]: ', cartItems);
@@ -22,7 +23,7 @@ const CartScreen = () => {
     // return cartItems[i]
     return { ...cartItems[i], itemId: i };
   });
-  console.log('[cartItemsArray]: ', cartItemsArray);
+  // console.log('[cartItemsArray]: ', cartItemsArray);
   const dispatch = useDispatch();
 
   return (
@@ -35,7 +36,12 @@ const CartScreen = () => {
           color={Colors.valid}
           title="Order Now"
           disabled={cartItemsArray.length === 0}
-          onPress={() => console.log('order button is pressed')}
+          onPress={() => {
+            // console.log('order button is pressed');
+            dispatch(addOrder(cartItems, cartTotalPrice));
+            dispatch(clearCart());
+            navigation.navigate('SubmitOrder');
+          }}
         />
       </View>
       <FlatList

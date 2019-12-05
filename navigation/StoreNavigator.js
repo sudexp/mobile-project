@@ -5,6 +5,7 @@ import { Platform } from 'react-native';
 import CollectionScreen from '../screens/CollectionScreen';
 import ItemDetailScreen from '../screens/ItemDetailScreen';
 import CartScreen from '../screens/CartScreen';
+import SubmitOrderScreen from '../screens/SubmitOrderScreen';
 import Colors from '../constants/Colors';
 
 const MainNavigator = createStackNavigator(
@@ -12,6 +13,7 @@ const MainNavigator = createStackNavigator(
     Collection: { screen: CollectionScreen },
     ItemDetail: { screen: ItemDetailScreen },
     Cart: { screen: CartScreen },
+    SubmitOrder: { screen: SubmitOrderScreen },
   },
   {
     defaultNavigationOptions: {
