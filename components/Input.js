@@ -1,3 +1,7 @@
+/**
+  No longer used in the project --> replaced by components/FormInput using the formik library
+*/
+
 import React, { useReducer } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 

@@ -1,5 +1,11 @@
 import React from 'react';
-import { SafeAreaView, View, Platform, StyleSheet } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  View,
+  Platform,
+  StyleSheet,
+} from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -59,141 +65,149 @@ const SubmitOrderScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Formik
-        initialValues={{
-          name: '',
-          phone: '',
-          zipcode: '',
-          city: '',
-          address: '',
-        }}
-        initialErrors={{ isValid: false }}
-        onSubmit={values => {
-          handleSubmitOrder(values);
-        }}
-        validationSchema={validationSchema}>
-        {({
-          handleChange,
-          values,
-          handleSubmit,
-          errors,
-          isValid,
-          touched,
-          handleBlur,
-          isSubmitting,
-        }) => (
-          <>
-            <FormInput
-              name="name"
-              value={values.name}
-              onChangeText={handleChange('name')}
-              label="Full Name"
-              placeholder="Enter your name"
-              autoCapitalize="words"
-              iconName={Platform.OS === 'android' ? 'md-person' : 'ios-person'}
-              iconColor={
-                Platform.OS === 'android' ? Colors.blue : Colors.orange
-              }
-              onBlur={handleBlur('name')}
-              keyboardType="default"
-              returnKeyType="next"
-              autoFocus
-            />
-            <FormErrorMessage errorValue={touched.name && errors.name} />
-            <FormInput
-              name="phone"
-              value={values.phone}
-              onChangeText={handleChange('phone')}
-              label="Phone number"
-              placeholder="Enter your phone"
-              iconName={
-                Platform.OS === 'android'
-                  ? 'md-phone-portrait'
-                  : 'ios-phone-portrait'
-              }
-              iconColor={
-                Platform.OS === 'android' ? Colors.blue : Colors.orange
-              }
-              onBlur={handleBlur('phone')}
-              keyboardType="numeric"
-              returnKeyType="next"
-            />
-            <FormErrorMessage errorValue={touched.phone && errors.phone} />
-            <FormInput
-              name="zipcode"
-              value={values.zipcode}
-              onChangeText={handleChange('zipcode')}
-              label="ZIP Code"
-              placeholder="Enter your ZIP Code"
-              iconName={
-                Platform.OS === 'android' ? 'md-mail-open' : 'ios-mail-open'
-              }
-              iconColor={
-                Platform.OS === 'android' ? Colors.blue : Colors.orange
-              }
-              onBlur={handleBlur('zipcode')}
-              keyboardType="numeric"
-              returnKeyType="next"
-            />
-            <FormErrorMessage errorValue={touched.zipcode && errors.zipcode} />
-            <FormInput
-              name="city"
-              value={values.city}
-              onChangeText={handleChange('city')}
-              label="City"
-              placeholder="Enter your city"
-              autoCapitalize="words"
-              iconName={
-                Platform.OS === 'android' ? 'md-business' : 'ios-business'
-              }
-              iconColor={
-                Platform.OS === 'android' ? Colors.blue : Colors.orange
-              }
-              onBlur={handleBlur('city')}
-              keyboardType="default"
-              returnKeyType="next"
-              autoCorrect
-            />
-            <FormErrorMessage errorValue={touched.city && errors.city} />
-            <FormInput
-              name="address"
-              value={values.address}
-              onChangeText={handleChange('address')}
-              label="Address Line"
-              placeholder="Enter your address"
-              autoCapitalize="words"
-              iconName={Platform.OS === 'android' ? 'md-key' : 'ios-key'}
-              iconColor={
-                Platform.OS === 'android' ? Colors.blue : Colors.orange
-              }
-              onBlur={handleBlur('address')}
-              keyboardType="default"
-              autoCorrect
-            />
-            <FormErrorMessage errorValue={touched.address && errors.address} />
-            <View style={styles.buttonContainer}>
-              <FormButton
-                buttonType={Platform.OS === 'android' ? 'solid' : 'outline'}
-                onPress={handleSubmit}
-                title="SUBMIT"
-                buttonColor={
+      <ScrollView>
+        <Formik
+          initialValues={{
+            name: '',
+            phone: '',
+            zipcode: '',
+            city: '',
+            address: '',
+          }}
+          initialErrors={{ isValid: false }}
+          onSubmit={values => {
+            handleSubmitOrder(values);
+          }}
+          validationSchema={validationSchema}>
+          {({
+            handleChange,
+            values,
+            handleSubmit,
+            errors,
+            isValid,
+            touched,
+            handleBlur,
+            isSubmitting,
+          }) => (
+            <>
+              <FormInput
+                name="name"
+                value={values.name}
+                onChangeText={handleChange('name')}
+                label="Full Name"
+                placeholder="Enter your name"
+                autoCapitalize="words"
+                iconName={
+                  Platform.OS === 'android' ? 'md-person' : 'ios-person'
+                }
+                iconColor={
                   Platform.OS === 'android' ? Colors.blue : Colors.orange
                 }
-                disabled={!isValid || isSubmitting}
-                loading={isSubmitting}
+                onBlur={handleBlur('name')}
+                keyboardType="default"
+                returnKeyType="next"
+                autoFocus
               />
-            </View>
-          </>
-        )}
-      </Formik>
-      <View style={styles.buttonContainer}>
-        <FormButton
-          buttonType={Platform.OS === 'android' ? 'solid' : 'outline'}
-          onPress={goToCollection}
-          title="CANCEL"
-          buttonColor={Colors.notvalid}
-        />
-      </View>
+              <FormErrorMessage errorValue={touched.name && errors.name} />
+              <FormInput
+                name="phone"
+                value={values.phone}
+                onChangeText={handleChange('phone')}
+                label="Phone number"
+                placeholder="Enter your phone"
+                iconName={
+                  Platform.OS === 'android'
+                    ? 'md-phone-portrait'
+                    : 'ios-phone-portrait'
+                }
+                iconColor={
+                  Platform.OS === 'android' ? Colors.blue : Colors.orange
+                }
+                onBlur={handleBlur('phone')}
+                keyboardType="numeric"
+                returnKeyType="next"
+              />
+              <FormErrorMessage errorValue={touched.phone && errors.phone} />
+              <FormInput
+                name="zipcode"
+                value={values.zipcode}
+                onChangeText={handleChange('zipcode')}
+                label="ZIP Code"
+                placeholder="Enter your ZIP Code"
+                iconName={
+                  Platform.OS === 'android' ? 'md-mail-open' : 'ios-mail-open'
+                }
+                iconColor={
+                  Platform.OS === 'android' ? Colors.blue : Colors.orange
+                }
+                onBlur={handleBlur('zipcode')}
+                keyboardType="numeric"
+                returnKeyType="next"
+              />
+              <FormErrorMessage
+                errorValue={touched.zipcode && errors.zipcode}
+              />
+              <FormInput
+                name="city"
+                value={values.city}
+                onChangeText={handleChange('city')}
+                label="City"
+                placeholder="Enter your city"
+                autoCapitalize="words"
+                iconName={
+                  Platform.OS === 'android' ? 'md-business' : 'ios-business'
+                }
+                iconColor={
+                  Platform.OS === 'android' ? Colors.blue : Colors.orange
+                }
+                onBlur={handleBlur('city')}
+                keyboardType="default"
+                returnKeyType="next"
+                autoCorrect
+              />
+              <FormErrorMessage errorValue={touched.city && errors.city} />
+              <FormInput
+                name="address"
+                value={values.address}
+                onChangeText={handleChange('address')}
+                label="Address Line"
+                placeholder="Enter your address"
+                autoCapitalize="words"
+                iconName={Platform.OS === 'android' ? 'md-key' : 'ios-key'}
+                iconColor={
+                  Platform.OS === 'android' ? Colors.blue : Colors.orange
+                }
+                onBlur={handleBlur('address')}
+                keyboardType="default"
+                autoCorrect
+              />
+              <FormErrorMessage
+                errorValue={touched.address && errors.address}
+              />
+              <View style={styles.buttonContainer}>
+                <FormButton
+                  buttonType={Platform.OS === 'android' ? 'solid' : 'outline'}
+                  onPress={handleSubmit}
+                  title="SUBMIT"
+                  buttonColor={
+                    Platform.OS === 'android' ? Colors.blue : Colors.orange
+                  }
+                  disabled={!isValid || isSubmitting}
+                  loading={isSubmitting}
+                />
+              </View>
+            </>
+          )}
+        </Formik>
+        <View style={styles.buttonContainer}>
+          <FormButton
+            buttonType={Platform.OS === 'android' ? 'solid' : 'outline'}
+            onPress={goToCollection}
+            title="CANCEL"
+            buttonColor={Colors.notvalid}
+          />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

@@ -1,13 +1,14 @@
 import React from 'react';
-import { SafeAreaView, View, Platform, StyleSheet } from 'react-native';
-import { Button } from 'react-native-elements';
+import { SafeAreaView, View, Button, Platform, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
 
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import FormErrorMessage from '../components/FormErrorMessage';
 import Colors from '../constants/Colors';
+import { addUser } from '../store/actions/auth';
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -23,8 +24,8 @@ const validationSchema = yup.object().shape({
 });
 
 const LoginScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   const goToSignup = () => navigation.navigate('Signup');
-
   const handleLogin = ({ email, password }) => {
     if (email.length > 0 && password.length > 0) {
       setTimeout(() => {
@@ -39,6 +40,8 @@ const LoginScreen = ({ navigation }) => {
         initialValues={{ email: '', password: '' }}
         initialErrors={{ isValid: false }}
         onSubmit={values => {
+          console.log('[values]: ', values);
+          dispatch(addUser(values));
           handleLogin(values);
         }}
         validationSchema={validationSchema}>
@@ -90,7 +93,9 @@ const LoginScreen = ({ navigation }) => {
             <View style={styles.buttonContainer}>
               <FormButton
                 buttonType={Platform.OS === 'android' ? 'solid' : 'outline'}
-                onPress={handleSubmit}
+                onPress={() => {
+                  handleSubmit();
+                }}
                 title="LOGIN"
                 buttonColor={
                   Platform.OS === 'android' ? Colors.blue : Colors.orange
@@ -103,13 +108,18 @@ const LoginScreen = ({ navigation }) => {
         )}
       </Formik>
       <Button
+        color={Platform.OS === 'android' ? Colors.orange : Colors.blue}
         title="Don't have an account? Sign Up!"
         onPress={goToSignup}
-        titleStyle={styles.text}
-        type="clear"
       />
     </SafeAreaView>
   );
+};
+
+LoginScreen.navigationOptions = () => {
+  return {
+    headerLeft: null,
+  };
 };
 
 const styles = StyleSheet.create({
@@ -119,9 +129,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     margin: 25,
-  },
-  text: {
-    color: Platform.OS === 'android' ? Colors.blue : Colors.blue,
   },
 });
 

@@ -21,6 +21,7 @@ export default (state = initialState, action) => {
           itemBrand,
           state.items[addedItem.id].sum + itemPrice,
         );
+
         return {
           ...state,
           items: {
@@ -31,6 +32,7 @@ export default (state = initialState, action) => {
         };
       } else {
         const newCart = new Cart(1, itemPrice, itemBrand, itemPrice);
+
         return {
           ...state,
           items: {
@@ -55,11 +57,13 @@ export default (state = initialState, action) => {
           selectedItem.itemBrand,
           selectedItem.sum - selectedItem.itemPrice,
         );
+
         updatedItems = { ...state.items, [action.itemId]: updatedItem };
       } else {
         updatedItems = { ...state.items };
         delete updatedItems[action.itemId];
       }
+
       return {
         ...state,
         items: updatedItems,
@@ -68,6 +72,7 @@ export default (state = initialState, action) => {
     // clear cart
     case CLEAR_CART:
       return initialState;
+
     default:
       return state;
   }
