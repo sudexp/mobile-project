@@ -5,15 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import Colors from '../constants/Colors';
 
-const FormInput = ({
-  iconName,
-  iconColor,
-  returnKeyType,
-  keyboardType,
-  name,
-  placeholder,
-  ...rest
-}) => (
+const FormInput = ({ iconName, iconColor, name, placeholder, ...rest }) => (
   <View style={styles.inputContainer}>
     <Input
       {...rest}

@@ -25,8 +25,8 @@ const validationSchema = yup.object().shape({
 const LoginScreen = ({ navigation }) => {
   const goToSignup = () => navigation.navigate('Signup');
 
-  const handleLogin = values => {
-    if (values.email.length > 0 && values.password.length > 0) {
+  const handleLogin = ({ email, password }) => {
+    if (email.length > 0 && password.length > 0) {
       setTimeout(() => {
         navigation.navigate('Collection');
       }, 3000);
@@ -37,6 +37,7 @@ const LoginScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <Formik
         initialValues={{ email: '', password: '' }}
+        initialErrors={{ isValid: false }}
         onSubmit={values => {
           handleLogin(values);
         }}
@@ -56,6 +57,7 @@ const LoginScreen = ({ navigation }) => {
               name="email"
               value={values.email}
               onChangeText={handleChange('email')}
+              label="Email"
               placeholder="Enter email"
               autoCapitalize="none"
               iconName={Platform.OS === 'android' ? 'md-mail' : 'ios-mail'}
@@ -63,6 +65,8 @@ const LoginScreen = ({ navigation }) => {
                 Platform.OS === 'android' ? Colors.blue : Colors.orange
               }
               onBlur={handleBlur('email')}
+              keyboardType="email-address"
+              returnKeyType="next"
               autoFocus
             />
             <FormErrorMessage errorValue={touched.email && errors.email} />
@@ -70,6 +74,7 @@ const LoginScreen = ({ navigation }) => {
               name="password"
               value={values.password}
               onChangeText={handleChange('password')}
+              label="Password"
               placeholder="Enter password"
               secureTextEntry
               iconName={Platform.OS === 'android' ? 'md-lock' : 'ios-lock'}
@@ -77,13 +82,14 @@ const LoginScreen = ({ navigation }) => {
                 Platform.OS === 'android' ? Colors.blue : Colors.orange
               }
               onBlur={handleBlur('password')}
+              keyboardType="default"
             />
             <FormErrorMessage
               errorValue={touched.password && errors.password}
             />
             <View style={styles.buttonContainer}>
               <FormButton
-                buttonType="outline"
+                buttonType={Platform.OS === 'android' ? 'solid' : 'outline'}
                 onPress={handleSubmit}
                 title="LOGIN"
                 buttonColor={

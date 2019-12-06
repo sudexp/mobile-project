@@ -1,71 +1,199 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  View,
-  ScrollView,
-  StyleSheet,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { SafeAreaView, View, Platform, StyleSheet } from 'react-native';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 
-import Input from '../components/Input';
+import FormInput from '../components/FormInput';
+import FormButton from '../components/FormButton';
+import FormErrorMessage from '../components/FormErrorMessage';
+import Colors from '../constants/Colors';
 
-const SubmitOrderScreen = props => {
+const validationSchema = yup.object().shape({
+  name: yup
+    .string()
+    .min(2, 'Must have at least 2 characters!')
+    .max(50, 'Can not be longer than 50 characters!')
+    .required('Please enter your full name'),
+  phone: yup
+    .string()
+    .matches(/^[0-9]\d{9}$/, {
+      message: 'Must have 10 digits!',
+      excludeEmptyString: false,
+    })
+    .required('Please enter your phone number'),
+  zipcode: yup
+    .string()
+    .matches(/^[0-9]\d{4}$/, {
+      message: 'Must have 5 digits!',
+      excludeEmptyString: false,
+    })
+    .required('Please enter your ZIP Code'),
+  city: yup
+    .string()
+    .min(2, 'Must have at least 2 characters!')
+    .max(30, 'Can not be longer than 30 characters!')
+    .required('Please enter your city'),
+  address: yup
+    .string()
+    .min(10, 'Must have at least 10 characters!')
+    .max(50, 'Can not be longer than 50 characters!')
+    .required('Please enter your address'),
+});
+
+const SubmitOrderScreen = ({ navigation }) => {
+  const goToCollection = () => navigation.navigate('Collection');
+
+  const handleSubmitOrder = ({ name, phone, zipcode, city, address }) => {
+    if (
+      name.length > 0 &&
+      phone.length > 0 &&
+      zipcode.length > 0 &&
+      city.length > 0 &&
+      address.length > 0
+    ) {
+      setTimeout(() => {
+        navigation.navigate('Collection');
+      }, 3000);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50}>
-        <ScrollView>
-          <View style={styles.form}>
-            <Input
-              id="fullName"
+      <Formik
+        initialValues={{
+          name: '',
+          phone: '',
+          zipcode: '',
+          city: '',
+          address: '',
+        }}
+        initialErrors={{ isValid: false }}
+        onSubmit={values => {
+          handleSubmitOrder(values);
+        }}
+        validationSchema={validationSchema}>
+        {({
+          handleChange,
+          values,
+          handleSubmit,
+          errors,
+          isValid,
+          touched,
+          handleBlur,
+          isSubmitting,
+        }) => (
+          <>
+            <FormInput
+              name="name"
+              value={values.name}
+              onChangeText={handleChange('name')}
               label="Full Name"
-              errorText="Please enter a valid name!"
-              keyboardType="default"
+              placeholder="Enter your name"
               autoCapitalize="words"
-              autoCorrect
+              iconName={Platform.OS === 'android' ? 'md-person' : 'ios-person'}
+              iconColor={
+                Platform.OS === 'android' ? Colors.blue : Colors.orange
+              }
+              onBlur={handleBlur('name')}
+              keyboardType="default"
               returnKeyType="next"
-              required
+              autoFocus
             />
-            <Input
-              id="phone"
-              label="Phone"
-              errorText="Please enter a valid phone!"
+            <FormErrorMessage errorValue={touched.name && errors.name} />
+            <FormInput
+              name="phone"
+              value={values.phone}
+              onChangeText={handleChange('phone')}
+              label="Phone number"
+              placeholder="Enter your phone"
+              iconName={
+                Platform.OS === 'android'
+                  ? 'md-phone-portrait'
+                  : 'ios-phone-portrait'
+              }
+              iconColor={
+                Platform.OS === 'android' ? Colors.blue : Colors.orange
+              }
+              onBlur={handleBlur('phone')}
               keyboardType="numeric"
               returnKeyType="next"
-              required
             />
-            <Input
-              id="zipCode"
+            <FormErrorMessage errorValue={touched.phone && errors.phone} />
+            <FormInput
+              name="zipcode"
+              value={values.zipcode}
+              onChangeText={handleChange('zipcode')}
               label="ZIP Code"
-              errorText="Please enter a valid image zipCode!"
+              placeholder="Enter your ZIP Code"
+              iconName={
+                Platform.OS === 'android' ? 'md-mail-open' : 'ios-mail-open'
+              }
+              iconColor={
+                Platform.OS === 'android' ? Colors.blue : Colors.orange
+              }
+              onBlur={handleBlur('zipcode')}
               keyboardType="numeric"
               returnKeyType="next"
-              required
             />
-            <Input
-              id="city"
+            <FormErrorMessage errorValue={touched.zipcode && errors.zipcode} />
+            <FormInput
+              name="city"
+              value={values.city}
+              onChangeText={handleChange('city')}
               label="City"
-              errorText="Please enter a valid city!"
-              keyboardType="default"
+              placeholder="Enter your city"
               autoCapitalize="words"
-              autoCorrect
+              iconName={
+                Platform.OS === 'android' ? 'md-business' : 'ios-business'
+              }
+              iconColor={
+                Platform.OS === 'android' ? Colors.blue : Colors.orange
+              }
+              onBlur={handleBlur('city')}
+              keyboardType="default"
               returnKeyType="next"
-              required
-            />
-            <Input
-              id="addressLine"
-              label="Address Line"
-              errorText="Please enter a valid address!"
-              keyboardType="default"
-              autoCapitalize="words"
               autoCorrect
-              multiline
-              numberOfLines={2}
-              required
-              minLength={5}
             />
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+            <FormErrorMessage errorValue={touched.city && errors.city} />
+            <FormInput
+              name="address"
+              value={values.address}
+              onChangeText={handleChange('address')}
+              label="Address Line"
+              placeholder="Enter your address"
+              autoCapitalize="words"
+              iconName={Platform.OS === 'android' ? 'md-key' : 'ios-key'}
+              iconColor={
+                Platform.OS === 'android' ? Colors.blue : Colors.orange
+              }
+              onBlur={handleBlur('address')}
+              keyboardType="default"
+              autoCorrect
+            />
+            <FormErrorMessage errorValue={touched.address && errors.address} />
+            <View style={styles.buttonContainer}>
+              <FormButton
+                buttonType={Platform.OS === 'android' ? 'solid' : 'outline'}
+                onPress={handleSubmit}
+                title="SUBMIT"
+                buttonColor={
+                  Platform.OS === 'android' ? Colors.blue : Colors.orange
+                }
+                disabled={!isValid || isSubmitting}
+                loading={isSubmitting}
+              />
+            </View>
+          </>
+        )}
+      </Formik>
+      <View style={styles.buttonContainer}>
+        <FormButton
+          buttonType={Platform.OS === 'android' ? 'solid' : 'outline'}
+          onPress={goToCollection}
+          title="CANCEL"
+          buttonColor={Colors.notvalid}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -73,15 +201,20 @@ const SubmitOrderScreen = props => {
 SubmitOrderScreen.navigationOptions = () => {
   return {
     headerTitle: 'Submit Order',
+    headerLeft: null,
   };
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.white,
   },
-  form: {
-    margin: 20,
+  buttonContainer: {
+    margin: 25,
+  },
+  text: {
+    color: Platform.OS === 'android' ? Colors.blue : Colors.blue,
   },
 });
 

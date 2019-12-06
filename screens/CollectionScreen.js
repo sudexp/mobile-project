@@ -53,6 +53,7 @@ CollectionScreen.navigationOptions = ({ navigation }) => {
         />
       </HeaderButtons>
     ),
+    headerLeft: null,
   };
 };
 
