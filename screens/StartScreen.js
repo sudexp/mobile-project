@@ -1,24 +1,19 @@
 import React, { useEffect } from 'react';
-import {
-  SafeAreaView,
-  Animated,
-  Text,
-  Platform,
-  StyleSheet,
-} from 'react-native';
+import { SafeAreaView, Platform, StyleSheet } from 'react-native';
 
+import BlinkingText from '../components/BlinkingText';
 import Colors from '../constants/Colors';
 
 const StartScreen = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate('Login');
-    }, 3000);
+    }, 5500);
   }, [navigation]);
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Online Store</Text>
+      <BlinkingText text="Online Store" />
     </SafeAreaView>
   );
 };
@@ -29,10 +24,6 @@ const styles = StyleSheet.create({
     backgroundColor: Platform.OS === 'android' ? Colors.blue : Colors.white,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  text: {
-    color: Colors.orange,
-    fontSize: 40,
   },
 });
 
