@@ -40,7 +40,7 @@ const LoginScreen = ({ navigation }) => {
         initialValues={{ email: '', password: '' }}
         initialErrors={{ isValid: false }}
         onSubmit={values => {
-          console.log('[values]: ', values);
+          // console.log('[values]: ', values);
           dispatch(addUser(values));
           handleLogin(values);
         }}

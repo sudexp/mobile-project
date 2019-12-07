@@ -17,7 +17,7 @@ import { addOrder } from '../store/actions/orders';
 const CartScreen = ({ navigation }) => {
   const cartTotalPrice = useSelector(state => state.cart.totalPrice);
   const cartItems = useSelector(state => state.cart.items);
-  console.log('[cartItems]: ', cartItems);
+  // console.log('[cartItems]: ', cartItems);
   const cartItemsArray = Object.keys(cartItems).map(i => {
     // cartItems[i].itemId = i
     // return cartItems[i]

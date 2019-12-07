@@ -8,11 +8,13 @@ import {
 } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
 
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import FormErrorMessage from '../components/FormErrorMessage';
 import Colors from '../constants/Colors';
+import { submitOrder } from '../store/actions/orders';
 
 const validationSchema = yup.object().shape({
   name: yup
@@ -47,6 +49,7 @@ const validationSchema = yup.object().shape({
 });
 
 const SubmitOrderScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   const goToCollection = () => navigation.navigate('Collection');
 
   const handleSubmitOrder = ({ name, phone, zipcode, city, address }) => {
@@ -76,6 +79,8 @@ const SubmitOrderScreen = ({ navigation }) => {
           }}
           initialErrors={{ isValid: false }}
           onSubmit={values => {
+            // console.log('[values]: ', values);
+            dispatch(submitOrder(values));
             handleSubmitOrder(values);
           }}
           validationSchema={validationSchema}>
