@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Colors from '../constants/Colors';
 import CartItem from '../components/CartItem';
-import { removeFromCart, clearCart } from '../store/actions/cart';
+import { removeFromCart } from '../store/actions/cart';
 import { addOrder } from '../store/actions/orders';
 
 const CartScreen = ({ navigation }) => {
@@ -27,7 +27,7 @@ const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   return (
-    <SafeAreaView style={styles.screen}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.total}>
         <Text style={styles.totalText}>
           Total: <Text style={styles.price}>€{cartTotalPrice.toFixed(2)}</Text>
@@ -39,7 +39,6 @@ const CartScreen = ({ navigation }) => {
           onPress={() => {
             // console.log('order button is pressed');
             dispatch(addOrder(cartItems, cartTotalPrice));
-            dispatch(clearCart());
             navigation.navigate('SubmitOrder');
           }}
         />
@@ -70,7 +69,7 @@ CartScreen.navigationOptions = () => {
 };
 
 const styles = StyleSheet.create({
-  screen: {
+  container: {
     margin: 20,
   },
   total: {

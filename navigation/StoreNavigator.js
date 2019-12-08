@@ -9,6 +9,7 @@ import CollectionScreen from '../screens/CollectionScreen';
 import ItemDetailScreen from '../screens/ItemDetailScreen';
 import CartScreen from '../screens/CartScreen';
 import SubmitOrderScreen from '../screens/SubmitOrderScreen';
+import ConfirmOrderScreen from '../screens/ConfirmOrderScreen';
 import Colors from '../constants/Colors';
 
 const MainNavigator = createStackNavigator(
@@ -20,6 +21,7 @@ const MainNavigator = createStackNavigator(
     ItemDetail: { screen: ItemDetailScreen },
     Cart: { screen: CartScreen },
     SubmitOrder: { screen: SubmitOrderScreen },
+    ConfirmOrder: { screen: ConfirmOrderScreen },
   },
   {
     defaultNavigationOptions: {

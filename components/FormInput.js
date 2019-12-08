@@ -6,11 +6,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from '../constants/Colors';
 
 const FormInput = ({ iconName, iconColor, name, placeholder, ...rest }) => (
-  <View style={styles.inputContainer}>
+  <View style={styles.container}>
     <Input
       {...rest}
       leftIcon={<Icon name={iconName} size={28} color={iconColor} />}
-      leftIconContainerStyle={styles.iconStyle}
+      leftIconContainerStyle={styles.icon}
       placeholderTextColor={Colors.grey}
       name={name}
       placeholder={placeholder}
@@ -20,10 +20,10 @@ const FormInput = ({ iconName, iconColor, name, placeholder, ...rest }) => (
 );
 
 const styles = StyleSheet.create({
-  inputContainer: {
+  container: {
     margin: 15,
   },
-  iconStyle: {
+  icon: {
     marginRight: 10,
   },
 });

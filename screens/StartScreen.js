@@ -8,7 +8,7 @@ const StartScreen = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate('Login');
-    }, 5500);
+    }, 4000);
   }, [navigation]);
 
   return (

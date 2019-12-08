@@ -15,6 +15,7 @@ import FormButton from '../components/FormButton';
 import FormErrorMessage from '../components/FormErrorMessage';
 import Colors from '../constants/Colors';
 import { submitOrder } from '../store/actions/orders';
+import { clearCart } from '../store/actions/cart';
 
 const validationSchema = yup.object().shape({
   name: yup
@@ -50,7 +51,6 @@ const validationSchema = yup.object().shape({
 
 const SubmitOrderScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const goToCollection = () => navigation.navigate('Collection');
 
   const handleSubmitOrder = ({ name, phone, zipcode, city, address }) => {
     if (
@@ -61,7 +61,7 @@ const SubmitOrderScreen = ({ navigation }) => {
       address.length > 0
     ) {
       setTimeout(() => {
-        navigation.navigate('Collection');
+        navigation.navigate('ConfirmOrder');
       }, 3000);
     }
   };
@@ -81,6 +81,7 @@ const SubmitOrderScreen = ({ navigation }) => {
           onSubmit={values => {
             // console.log('[values]: ', values);
             dispatch(submitOrder(values));
+            dispatch(clearCart());
             handleSubmitOrder(values);
           }}
           validationSchema={validationSchema}>
@@ -207,7 +208,10 @@ const SubmitOrderScreen = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <FormButton
             buttonType={Platform.OS === 'android' ? 'solid' : 'outline'}
-            onPress={goToCollection}
+            onPress={() => {
+              // console.log('submit button is pressed');
+              navigation.navigate('Cart');
+            }}
             title="CANCEL"
             buttonColor={Colors.notvalid}
           />
@@ -220,7 +224,6 @@ const SubmitOrderScreen = ({ navigation }) => {
 SubmitOrderScreen.navigationOptions = () => {
   return {
     headerTitle: 'Submit Order',
-    headerLeft: null,
   };
 };
 

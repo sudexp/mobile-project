@@ -20,7 +20,7 @@ const Item = ({ image, brand, price, viewDetails, addToCart }) => {
   }
 
   return (
-    <View style={styles.item}>
+    <View style={styles.container}>
       <View style={styles.touchable}>
         <TouchableComponent onPress={viewDetails} useForeground>
           <View>
@@ -51,7 +51,7 @@ const Item = ({ image, brand, price, viewDetails, addToCart }) => {
 };
 
 const styles = StyleSheet.create({
-  item: {
+  container: {
     shadowColor: Colors.black,
     shadowOpacity: 0.26,
     shadowOffset: { width: 0, height: 2 },
