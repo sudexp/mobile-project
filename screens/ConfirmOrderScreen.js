@@ -1,14 +1,25 @@
 import React from 'react';
-import { SafeAreaView, View, Text, Button, StyleSheet } from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  TouchableOpacity,
+  TouchableNativeFeedback,
+  Platform,
+  StyleSheet,
+} from 'react-native';
 import { useSelector } from 'react-redux';
 
 import Colors from '../constants/Colors';
 
 const ConfirmOrderScreen = ({ navigation }) => {
-  const order = useSelector(state => state.orders.orders);
-  console.log('[order]: ', order);
   const userData = useSelector(state => state.orders.userData);
-  console.log('[userData]: ', userData);
+  // console.log('[userData]: ', userData);
+  let TouchableComponent = TouchableOpacity;
+
+  if (Platform.OS === 'android' && Platform.Version >= 21) {
+    TouchableComponent = TouchableNativeFeedback;
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -56,13 +67,14 @@ const ConfirmOrderScreen = ({ navigation }) => {
           </View>
         </View>
       </View>
-      <Button
-        color={Colors.orange}
-        title="Go to Collection"
+      <TouchableComponent
         onPress={() => {
           navigation.navigate('Collection');
-        }}
-      />
+        }}>
+        <View style={styles.buttonContainer}>
+          <Text style={styles.button}>Go to Collection</Text>
+        </View>
+      </TouchableComponent>
     </SafeAreaView>
   );
 };
@@ -119,6 +131,14 @@ const styles = StyleSheet.create({
     width: '65%',
     height: '20%',
     paddingHorizontal: 20,
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    marginTop: 25,
+  },
+  button: {
+    color: Platform.OS === 'android' ? Colors.blue : Colors.orange,
+    fontSize: 18,
   },
 });
 

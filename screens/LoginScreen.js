@@ -1,5 +1,13 @@
 import React from 'react';
-import { SafeAreaView, View, Button, Platform, StyleSheet } from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  TouchableOpacity,
+  TouchableNativeFeedback,
+  Platform,
+  StyleSheet,
+} from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
@@ -25,7 +33,6 @@ const validationSchema = yup.object().shape({
 
 const LoginScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const goToSignup = () => navigation.navigate('Signup');
   const handleLogin = ({ email, password }) => {
     if (email.length > 0 && password.length > 0) {
       setTimeout(() => {
@@ -33,6 +40,11 @@ const LoginScreen = ({ navigation }) => {
       }, 3000);
     }
   };
+  let TouchableComponent = TouchableOpacity;
+
+  if (Platform.OS === 'android' && Platform.Version >= 21) {
+    TouchableComponent = TouchableNativeFeedback;
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -107,11 +119,11 @@ const LoginScreen = ({ navigation }) => {
           </>
         )}
       </Formik>
-      <Button
-        color={Platform.OS === 'android' ? Colors.orange : Colors.blue}
-        title="Don't have an account? Sign Up!"
-        onPress={goToSignup}
-      />
+      <TouchableComponent onPress={() => navigation.navigate('Signup')}>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>Don't have an account? Sign Up!</Text>
+        </View>
+      </TouchableComponent>
     </SafeAreaView>
   );
 };
@@ -129,6 +141,13 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     margin: 25,
+  },
+  textContainer: {
+    alignItems: 'center',
+  },
+  text: {
+    color: Platform.OS === 'android' ? Colors.blue : Colors.orange,
+    fontSize: 18,
   },
 });
 

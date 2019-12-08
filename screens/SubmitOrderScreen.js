@@ -235,9 +235,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     margin: 25,
   },
-  text: {
-    color: Platform.OS === 'android' ? Colors.blue : Colors.blue,
-  },
 });
 
 export default SubmitOrderScreen;

@@ -55,15 +55,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  mainText: {
+    fontSize: 18,
+  },
   quantity: {
     color: Colors.grey,
-    fontSize: 16,
+    fontSize: 18,
   },
   price: {
-    fontSize: 16,
-  },
-  removeButton: {
-    marginLeft: 20,
+    fontSize: 18,
+    marginRight: 20,
   },
 });
 
