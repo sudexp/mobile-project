@@ -1,9 +1,22 @@
-import Items from '../../data/dummy-data';
+// import Items from '../../data/dummy-data';
+import { FETCH_ITEMS } from '../actions/items';
 
 const initialState = {
-  availableItems: Items,
+  items: [],
 };
 
 export default (state = initialState, action) => {
-  return state;
+  switch (action.type) {
+    case FETCH_ITEMS:
+      // console.log('[reducer] FETCH_ITEMS');
+      // console.log('[action]', action);
+
+      return {
+        ...state,
+        items: action.items,
+      };
+
+    default:
+      return state;
+  }
 };

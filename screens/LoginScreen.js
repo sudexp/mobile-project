@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   View,
   Text,
   TouchableOpacity,
   TouchableNativeFeedback,
+  Alert,
   Platform,
   StyleSheet,
 } from 'react-native';
@@ -32,14 +33,40 @@ const validationSchema = yup.object().shape({
 });
 
 const LoginScreen = ({ navigation }) => {
+  const [error, setError] = useState();
+
   const dispatch = useDispatch();
-  const handleLogin = ({ email, password }) => {
-    if (email.length > 0 && password.length > 0) {
+
+  useEffect(() => {
+    if (error) {
+      Alert.alert('An Error Occurred!', error, [
+        {
+          text: 'Okay',
+          onPress: () =>
+            console.log(
+              'TODO: reset/restart formik or screen to avoid activityIndicator on submitButton?!',
+            ),
+        },
+      ]);
+    }
+  }, [error, navigation]);
+
+  const handleLogin = async ({ email, password }) => {
+    setError(null);
+    try {
+      await dispatch(addUser(email, password));
+      navigation.navigate('Collection');
+    } catch (err) {
+      setError(err.message);
+    }
+
+    /* if (email.length > 0 && password.length > 0) {
       setTimeout(() => {
         navigation.navigate('Collection');
       }, 3000);
-    }
+    } */
   };
+
   let TouchableComponent = TouchableOpacity;
 
   if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -53,7 +80,6 @@ const LoginScreen = ({ navigation }) => {
         initialErrors={{ isValid: false }}
         onSubmit={values => {
           // console.log('[values]: ', values);
-          dispatch(addUser(values));
           handleLogin(values);
         }}
         validationSchema={validationSchema}>

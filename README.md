@@ -8,7 +8,7 @@ The purpose of this project is the implementation of a *mobile online store app*
 
 - [React Native](https://facebook.github.io/react-native/) as a UI platform  
 - [Redux](https://redux.js.org/) as a predictable state container  
-- [Redux Saga](https://redux-saga.js.org/) as a library that aims to make application side effects  
+- [Redux Thunk](https://github.com/reduxjs/redux-thunk/) as the recommended middleware for basic Redux side effects logic  
 
 ***[REST API](https://github.com/sudexp/mobile-project-api)*** for this project was implemented using the following technologies:
 - [NodeJS](https://nodejs.org/en/) as an open source server environment  

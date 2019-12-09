@@ -25,7 +25,10 @@ const Item = ({ image, brand, price, viewDetails, addToCart }) => {
         <TouchableComponent onPress={viewDetails} useForeground>
           <View>
             <View style={styles.imageContainer}>
-              <Image style={styles.image} source={{ uri: image }} />
+              <Image
+                style={styles.image}
+                source={{ uri: `http://localhost:3000${image}` }}
+              />
             </View>
             <View style={styles.details}>
               <Text style={styles.brand}>{brand}</Text>
@@ -67,11 +70,12 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   imageContainer: {
-    width: '100%',
+    width: '80%',
     height: '60%',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     overflow: 'hidden',
+    alignSelf: 'center',
   },
   image: {
     width: '100%',
@@ -80,7 +84,7 @@ const styles = StyleSheet.create({
   details: {
     alignItems: 'center',
     height: '15%',
-    padding: 10,
+    padding: 5,
   },
   brand: {
     fontSize: 18,

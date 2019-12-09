@@ -9,7 +9,11 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_USER:
       // console.log('[reducer] ADD_USER');
-      const user = new Auth(action.user.email, action.user.password);
+      const user = new Auth(
+        action.user.email,
+        action.user.password,
+        action.user.token,
+      );
 
       return {
         ...state,

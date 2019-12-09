@@ -14,19 +14,19 @@ export default (state = initialState, action) => {
       const itemBrand = addedItem.brand;
 
       // check if this item already in the cart
-      if (state.items[addedItem.id]) {
+      if (state.items[addedItem._id]) {
         const updatedCart = new Cart(
-          state.items[addedItem.id].quantity + 1,
+          state.items[addedItem._id].quantity + 1,
           itemPrice,
           itemBrand,
-          state.items[addedItem.id].sum + itemPrice,
+          state.items[addedItem._id].sum + itemPrice,
         );
 
         return {
           ...state,
           items: {
             ...state.items,
-            [addedItem.id]: updatedCart,
+            [addedItem._id]: updatedCart,
           },
           totalPrice: state.totalPrice + itemPrice,
         };
@@ -37,7 +37,7 @@ export default (state = initialState, action) => {
           ...state,
           items: {
             ...state.items,
-            [addedItem.id]: newCart,
+            [addedItem._id]: newCart,
           },
           totalPrice: state.totalPrice + itemPrice,
         };

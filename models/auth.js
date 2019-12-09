@@ -1,7 +1,8 @@
 class Auth {
-  constructor(email, password) {
+  constructor(email, password, token) {
     this.email = email;
     this.password = password;
+    this.token = token;
   }
 }
 

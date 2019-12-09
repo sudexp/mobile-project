@@ -21,16 +21,21 @@ const ItemDetailScreen = ({ navigation }) => {
   // console.log('[itemId]: ', itemId);
   // console.log('[navigation]: ', navigation);
   const selectedItem = useSelector(state =>
-    state.items.availableItems.find(item => item.id === itemId),
+    state.items.items.find(item => item._id === itemId),
   );
-  // console.log('[selectedItem]: ', selectedItem);
-  // console.log('[imageUrl]: ', selectedItem.imgUrl);
+  console.log('[selectedItem]: ', selectedItem);
+  // console.log('[image]: ', selectedItem.image);
   const dispatch = useDispatch();
 
   return (
     <SafeAreaView>
       <ScrollView>
-        <Image style={styles.image} source={{ uri: selectedItem.imgUrl }} />
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={{ uri: `http://localhost:3000${selectedItem.image}` }}
+          />
+        </View>
         <View style={styles.actions}>
           <Button
             color={Platform.OS === 'android' ? Colors.blue : Colors.orange}
@@ -63,22 +68,26 @@ ItemDetailScreen.navigationOptions = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  imageContainer: {
+    alignItems: 'center',
+  },
   image: {
-    width: '100%',
-    height: 300,
+    width: '80%',
+    height: 220,
+    marginTop: 50,
   },
   actions: {
-    marginVertical: 10,
+    marginBottom: 10,
     alignItems: 'center',
   },
   price: {
     fontSize: 20,
     color: Colors.grey,
     textAlign: 'center',
-    marginVertical: 20,
+    marginBottom: 40,
   },
   description: {
-    fontSize: 14,
+    fontSize: 15,
     color: Colors.black,
     textAlign: 'left',
     marginHorizontal: 20,
