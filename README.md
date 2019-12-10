@@ -51,7 +51,7 @@ iOS:
 If the user enters an email address and password registered in the database, he will be automatically redirected to the CollectionScreen after clicking the submit button:
 
 Android: 
-![alt text](screenshots/android_collection.png "Collection Android")
+![alt text](screenshots/android_collection.png?raw=true "Collection Android")
 
 iOS: 
 ![alt text](screenshots/ios_collection.png "StartScreen iOS")

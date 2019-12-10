@@ -11,7 +11,7 @@ export const addToCart = (item, token) => {
   return async (dispatch, getState) => {
     // 1. If no state.orderId then create an order (POST /orders -> orderId). Put orderId to state.
     // 2. Add item to cart and save on server (POST /order/{orderId}/orderitems -> orderItemId).
-    let orderId = getState().orderId;
+    let orderId = getState().cart.orderId;
 
     if (!orderId) {
       // create a new order

@@ -31,7 +31,12 @@ async function saveOrder(token, orderId, userData) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         isCompleted: true,
-        address: userData,
+        phone: userData.phone,
+        address: {
+          zipCode: userData.zipcode,
+          city: userData.city,
+          addressLine: userData.address,
+        },
       }),
     },
   );

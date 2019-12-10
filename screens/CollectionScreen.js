@@ -99,7 +99,7 @@ const CollectionScreen = ({ navigation }) => {
               });
             }}
             addToCart={() => {
-              // console.log('addToCart pressed');
+              console.log('addToCart pressed');
               dispatch(addToCart(item, token));
             }}
           />
