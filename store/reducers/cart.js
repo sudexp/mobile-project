@@ -2,6 +2,7 @@ import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from '../actions/cart';
 import Cart from '../../models/cart';
 
 const initialState = {
+  orderId: null,
   items: {},
   totalPrice: 0,
 };
@@ -9,9 +10,11 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
+      const orderId = action.orderId;
       const addedItem = action.item;
       const itemPrice = addedItem.price;
       const itemBrand = addedItem.brand;
+      console.log(`[cart reducer]: orderId=${orderId}, itemBrand=${itemBrand}`);
 
       // check if this item already in the cart
       if (state.items[addedItem._id]) {
@@ -24,6 +27,7 @@ export default (state = initialState, action) => {
 
         return {
           ...state,
+          orderId,
           items: {
             ...state.items,
             [addedItem._id]: updatedCart,
@@ -35,6 +39,7 @@ export default (state = initialState, action) => {
 
         return {
           ...state,
+          orderId,
           items: {
             ...state.items,
             [addedItem._id]: newCart,

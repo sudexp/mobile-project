@@ -23,7 +23,8 @@ const CollectionScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(); // initially error is undefined
   const items = useSelector(state => state.items.items);
-  console.log('[items]: ', items);
+  const token = useSelector(state => state.auth.user.token);
+  // console.log('[items]: ', items);
   // console.log('[navigation]: ', navigation);
   const dispatch = useDispatch();
 
@@ -99,7 +100,7 @@ const CollectionScreen = ({ navigation }) => {
             }}
             addToCart={() => {
               // console.log('addToCart pressed');
-              dispatch(addToCart(item));
+              dispatch(addToCart(item, token));
             }}
           />
         )}
