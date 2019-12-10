@@ -2,7 +2,7 @@ export const FETCH_ITEMS = 'FETCH_ITEMS';
 
 export const fetchItems = () => async dispatch => {
   try {
-    const response = await fetch('http://localhost:3000/ap/collection');
+    const response = await fetch('http://localhost:3000/api/collection');
 
     if (!response.ok) {
       const errorResponceData = await response.json();

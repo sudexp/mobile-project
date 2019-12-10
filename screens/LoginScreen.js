@@ -39,32 +39,27 @@ const LoginScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (error) {
-      Alert.alert('An Error Occurred!', error, [
+      Alert.alert('Login error', 'Your e-mail or password was incorrect!', [
         {
-          text: 'Okay',
-          onPress: () =>
-            console.log(
-              'TODO: reset/restart formik or screen to avoid activityIndicator on submitButton?!',
-            ),
+          text: 'Try again',
+          style: 'destructive',
+          onPress: () => console.log(error),
         },
       ]);
     }
   }, [error, navigation]);
 
-  const handleLogin = async ({ email, password }) => {
+  const handleLogin = async ({ email, password }, actions) => {
     setError(null);
     try {
       await dispatch(addUser(email, password));
+      actions.resetForm();
       navigation.navigate('Collection');
     } catch (err) {
       setError(err.message);
+    } finally {
+      actions.setSubmitting(false);
     }
-
-    /* if (email.length > 0 && password.length > 0) {
-      setTimeout(() => {
-        navigation.navigate('Collection');
-      }, 3000);
-    } */
   };
 
   let TouchableComponent = TouchableOpacity;
@@ -78,9 +73,9 @@ const LoginScreen = ({ navigation }) => {
       <Formik
         initialValues={{ email: '', password: '' }}
         initialErrors={{ isValid: false }}
-        onSubmit={values => {
+        onSubmit={(values, actions) => {
           // console.log('[values]: ', values);
-          handleLogin(values);
+          handleLogin(values, actions);
         }}
         validationSchema={validationSchema}>
         {({

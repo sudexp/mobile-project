@@ -75,6 +75,14 @@ const ConfirmOrderScreen = ({ navigation }) => {
           <Text style={styles.button}>Go to Collection</Text>
         </View>
       </TouchableComponent>
+      <TouchableComponent
+        onPress={() => {
+          navigation.navigate('Login');
+        }}>
+        <View style={styles.buttonContainer}>
+          <Text style={styles.button}>Sign Out</Text>
+        </View>
+      </TouchableComponent>
     </SafeAreaView>
   );
 };
