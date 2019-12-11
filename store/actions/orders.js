@@ -20,10 +20,10 @@ export const submitOrder = (token, orderId, userData) => {
 };
 
 async function saveOrder(token, orderId, userData) {
-  console.log(
+  /* console.log(
     `[saveOrder] saving... token=${token}, orderId=${orderId}, userData: `,
     userData,
-  );
+  ); */
   const response = await fetch(
     `http://localhost:3000/api/orders/${orderId}?token=${token}`,
     {

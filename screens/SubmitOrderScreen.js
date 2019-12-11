@@ -55,7 +55,7 @@ const SubmitOrderScreen = ({ navigation }) => {
   const orderId = useSelector(state => state.cart.orderId);
 
   const handleSubmitOrder = ({ name, phone, zipcode, city, address }) => {
-    console.log('[handleSubmitOrder] ');
+    // console.log('[handleSubmitOrder] ');
     if (
       name.length > 0 &&
       phone.length > 0 &&
@@ -71,13 +71,13 @@ const SubmitOrderScreen = ({ navigation }) => {
         address,
       };
 
-      console.log(`- token=${token}, orderId=${orderId}, userData=`, userData);
+      // console.log(`- token=${token}, orderId=${orderId}, userData=`, userData);
       dispatch(submitOrder(token, orderId, userData));
 
       setTimeout(() => {
         dispatch(clearCart());
         navigation.navigate('ConfirmOrder');
-      }, 3000);
+      }, 2000);
     }
   };
 

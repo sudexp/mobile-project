@@ -24,7 +24,7 @@ const ItemDetailScreen = ({ navigation }) => {
     state.items.items.find(item => item._id === itemId),
   );
   const token = useSelector(state => state.auth.user.token);
-  console.log('[selectedItem]: ', selectedItem);
+  // console.log('[selectedItem]: ', selectedItem);
   // console.log('[image]: ', selectedItem.image);
   const dispatch = useDispatch();
 

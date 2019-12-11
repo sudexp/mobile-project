@@ -5,8 +5,8 @@ export const fetchItems = () => async dispatch => {
     const response = await fetch('http://localhost:3000/api/collection');
 
     if (!response.ok) {
-      const errorResponceData = await response.json();
-      console.log('[errorResponceData]: ', errorResponceData);
+      const errorResponseData = await response.json();
+      console.log('[errorResponseData]: ', errorResponseData);
       // console.log('[responseData.message]: ', responseData.message);
 
       throw new Error('Something went wrong!');
