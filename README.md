@@ -16,19 +16,19 @@ The purpose of this project is the implementation of a ***mobile online store ap
 - [MongoDB](https://www.mongodb.com/) as a database  
 - [Mongoose](https://mongoosejs.com/) as a MongoDB object modeling tool designed to work in an asynchronous environment.  
 
-**To run project:**
+###To run project:
 
 First step:
 - download or clone [REST API](https://github.com/sudexp/mobile-project-api) project
-- run *npm install* in a command line
-- run *nodemon* (or *npm run devstart* if you do not have [nodemon](https://www.npmjs.com/package/nodemon) installed globally) in command line
+- run **npm install** in a command line
+- run **nodemon** (or *npm run devstart* if you do not have [nodemon](https://www.npmjs.com/package/nodemon) installed globally) in command line
 
 Second step:
 - download or clone this project
-- run *npm install* in a command line
-- run *npm run ios* or *npm run android* in command line (depending on which simulator you want to run)
+- run **npm install** in a command line
+- run **npm run ios** or **npm run android** in command line (depending on which simulator you want to run)
 
-**Basic information**
+###Basic information
 
 The project was deployed using the [React Native CLI](https://www.npmjs.com/package/react-native-cli).
 
@@ -38,7 +38,7 @@ The project was implemented in 2 steps:
 
 The application is designed and works on all mobile devices IOS and Android. Styling is thought out taking into account the used platform and differs in colors and built-in components (buttons, icons, etc.).
 
-The application starts with [StartScreen](screens/LoginScreen.js), where text (by default is "Online Store") bliks for 4 seconds:
+The application starts with [StartScreen](screens/LoginScreen.js), where text (by default is "Online Store") blinks for 4 seconds:
 
 ![alt text](screenshots/android_start.png?raw=true "StartScreen Android")
 ![alt text](screenshots/ios_start.png "StartScreen iOS")
@@ -91,7 +91,7 @@ If user enters invalid data or leaves any of the fields blank, he will receive a
 ![alt text](screenshots/ios_login_errors.png "Invalid data in LoginScreen iOS")
 
 Data validation is performed using JavaScript object schema validator and object parser [Yup](https://github.com/jquense/yup):
-- for "Email" field the valid value is x@x.x
+- for "Email" field the valid value is "x@x.x"
 - for "Password" field the valid value is any characters that must be at least 5.
 
 If user enters valid but incorrect data (an unregistered value pair in the database), he will receive an alert window with the corresponding message:
@@ -327,7 +327,7 @@ async function createOrder(token) {
 ```
 
 ![alt text](screenshots/db_orders.png "DB orders")
-![alt text](screenshots/state_orders.png "Redux state orders")
+![alt text](screenshots/state_order.png "Redux state orders")
 
 All the items will be added to the order (until its "isCompleted" property is set to "true"):
 ```
