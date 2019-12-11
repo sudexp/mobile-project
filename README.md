@@ -65,7 +65,17 @@ useEffect(() => {
 }, [navigation]);
 ```
 
-At this stage, the form with email and password fields is blank and the "Login" button is inactive:
+At this stage, Redux state is empty:
+
+![alt text](screenshots/state_initial.png "Redux state initially")
+
+And in the database we have only a list of items and two registered users without tokens:
+
+![alt text](screenshots/db_initial.png "DB initially")
+![alt text](screenshots/items_innitial.png "Items initially")
+![alt text](screenshots/users_innitial.png "Users initially")
+
+Initially, the form with email and password fields is blank and the "Login" button is inactive:
 
 ![alt text](screenshots/android_login_empty.png?raw=true "LoginScreen Android")
 ![alt text](screenshots/ios_login_empty.png "LoginScreen iOS")
@@ -130,11 +140,11 @@ export const addUser = (email, password) => async dispatch => {
 };
 ```
 
-If user is registered in the database, a token is initialized and sent together with responce 200 to client:
+If user is registered in the database, a token is initialized and sent together with the responce "200" to client:
 
 ![alt text](screenshots/db_token.png "Token in database")
 
-In the application, token is added to Redux auth state and used inn future for sending POST requests to the database:
+In the application, token is added to Redux auth state and used in future for sending POST requests to the database:
 
 ![alt text](screenshots/state_token.png "Token in Redux state")
 
@@ -167,7 +177,7 @@ export default (state = initialState, action) => {
 };
 ```
 
-When the [CollectionScreen](screens/CollectionScreen.js) is downloaded, a request for a list of products is made:
+When the [CollectionScreen](screens/CollectionScreen.js) comes up, a request for a list of products is made:
 ```
 // actions/items.js
 export const fetchItems = () => async dispatch => {
@@ -192,7 +202,10 @@ export const fetchItems = () => async dispatch => {
 };
 ```
 
-And items are added to Redux state after receiving response 200 and data from the server:
+And items are added to Redux state after receiving the response "200" and data from the server:
+
+![alt text](screenshots/state_items.png "Items in Redux state")
+
 ```
 // reducers/items.js
 import { FETCH_ITEMS } from '../actions/items';
@@ -240,7 +253,7 @@ The first of these options is implemented by clicking on "View Details" button, 
 />
 ```
 
-![alt text](screenshots/android_details.pngpng?raw=true "ItemDetailsScreen Android")
+![alt text](screenshots/android_details.png?raw=true "ItemDetailsScreen Android")
 ![alt text](screenshots/ios_details.png "ItemDetailsScreen iOS")
 
 From this screen, user can either return to the previous one through the left button of navigation header bar or add an item to cart by clicking on "Add to Cart" button. Similarly, user can add an item on the *CollectionScreen*.
@@ -289,6 +302,51 @@ case ADD_TO_CART:
       };
     }
 ```
+
+When user adds an item to cart, a POST request are sent to server and an order is created.
+```
+// actions/cart.js
+async function createOrder(token) {
+  const response = await fetch(
+    `http://localhost:3000/api/orders?token=${token}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token }),
+    },
+  );
+
+  if (!response.ok) {
+    const errorResponceData = await response.json();
+    throw new Error('Was not able to create a new order!');
+  }
+
+  const responseData = await response.json();
+  return responseData.data._id;
+}
+```
+
+![alt text](screenshots/db_orders.png "DB orders")
+![alt text](screenshots/state_orders.png "Redux state orders")
+
+All the items will be added to the order (until its "isCompleted" property is set to "true"):
+```
+// save item:
+const response = await fetch(
+  `http://localhost:3000/api/orders/${orderId}/items?token=${token}`,
+  {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      itemId: item._id,
+      orderId,
+    }),
+  },
+);
+```
+
+![alt text](screenshots/db_orderItems.png "DB items")
+
 
 The option "moving to cart" can be done by clicking on the trash icon on right side of navigation header bar, after which [CartScreen](screens/CartScreen.js) opens. Initially, cart is empty:
  
@@ -345,14 +403,14 @@ case REMOVE_FROM_CART:
   };
 ```
 
-*CartScreen* after reducing a certain amount of items:
+*CartScreen* after removing a certain amount of items:
 
-![alt text](screenshots/android_cart_minus.png?raw=true "After reducing, CartScreen Android")
-![alt text](screenshots/ios_cart_minus.png "After reducing, CartScreen  iOS")
+![alt text](screenshots/android_cart_minus.png?raw=true "After removing items, CartScreen Android")
+![alt text](screenshots/ios_cart_minus.png "After removing items, CartScreen  iOS")
 
 If user eventually removes all items, CartScreen will return to its initial state.
 
-After selecting items and clicking on "Order Now" button, user will be redirected to the [SubmitOrderScreen](screens/SubmitOrderScreen.js), where he has an option of either going back to the *CartScreen* to edit the order by clicking on the "Cancel" button (or via navigation header bar) or filling out the form and confirming the order by clicking on the "Submit" button (innitially innactive):
+After selecting items and clicking on "Order Now" button, user will be redirected to the [SubmitOrderScreen](screens/SubmitOrderScreen.js), where he has an option of either going back to the *CartScreen* to edit the order by clicking on the "Cancel" button (or via navigation header bar) or filling out the form and confirming the order by clicking on the "Submit" button (initially inactive):
 
 ![alt text](screenshots/android_submit_empty.png?raw=true "SubmitForm initially, SubmitScreenScreen Android")
 ![alt text](screenshots/ios_submit_empty.png "SubmitForm initially, SubmitScreenScreen iOS")
@@ -387,7 +445,7 @@ A validly filled form:
 ![alt text](screenshots/android_submit.png "Cart not empty, CartScreen Android")
 ![alt text](screenshots/ios_submit.png "Cart not empty, CartScreen  iOS")
 
-After filling in the form with valid data annd pressinng "Submit" button, user is redirected to the last [ConfirmScreen](screens/ConfirmOrderScreen.js) of the applicatio:
+After filling in the form with valid data annd pressing "Submit" button, user is redirected to the last [ConfirmScreen](screens/ConfirmOrderScreen.js) of the application:
 
 ![alt text](screenshots/android_confirm.png "ConfirmScreen Android") 
 ![alt text](screenshots/ios_confirm.png "ConfirmScreen  iOS")
