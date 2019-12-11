@@ -42,22 +42,51 @@ export const addToCart = (item, token) => {
     }
 
     const responseData = await response.json();
-
     console.log('[addToCart] responseData', responseData);
-    console.log(`[addToCart] saved orderItemId: ${responseData.data._id}`);
+
+    const orderItemId = responseData.data._id;
+    console.log(`[addToCart] saved orderItemId: ${orderItemId}`);
 
     return dispatch({
       type: ADD_TO_CART,
-      item,
+      item: {
+        ...item,
+        orderItemId,
+        itemId: item._id,
+      },
       orderId,
     });
   };
 };
 
-export const removeFromCart = itemId => {
-  return {
-    type: REMOVE_FROM_CART,
-    itemId: itemId,
+export const removeFromCart = (item, orderId, token) => {
+  const orderItemId = item.orderItemId;
+  const itemId = item.itemId;
+  console.log(`[removeFromCart] orderItemId=${orderItemId}, itemId=${itemId}`);
+
+  return async dispatch => {
+    console.log('[removeFromCart] dispatching...');
+    const response = await fetch(
+      `http://localhost:3000/api/orders/${orderId}/items/${orderItemId}?token=${token}`,
+      {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      },
+    );
+
+    if (!response.ok) {
+      const errorResponceData = await response.json();
+      console.log('[removeFromCart]: ', errorResponceData);
+      throw new Error('Was not able to remove itemOrder from order!');
+    }
+
+    const responseData = await response.json();
+    console.log('[removeFromCart] responseData', responseData);
+
+    return dispatch({
+      type: REMOVE_FROM_CART,
+      itemId: itemId,
+    });
   };
 };
 

@@ -17,6 +17,8 @@ import { addOrder } from '../store/actions/orders';
 const CartScreen = ({ navigation }) => {
   const cartTotalPrice = useSelector(state => state.cart.totalPrice);
   const cartItems = useSelector(state => state.cart.items);
+  const token = useSelector(state => state.auth.user.token);
+  const orderId = useSelector(state => state.cart.orderId);
   // console.log('[cartItems]: ', cartItems);
   const cartItemsArray = Object.keys(cartItems).map(i => {
     // cartItems[i].itemId = i
@@ -53,7 +55,7 @@ const CartScreen = ({ navigation }) => {
               quantity={item.quantity}
               brand={item.itemBrand}
               price={item.sum}
-              onRemove={() => dispatch(removeFromCart(item.itemId))}
+              onRemove={() => dispatch(removeFromCart(item, orderId, token))}
             />
           );
         }}

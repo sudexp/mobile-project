@@ -1,5 +1,5 @@
 import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from '../actions/cart';
-import Cart from '../../models/cart';
+import CartItem from '../../models/cart';
 
 const initialState = {
   orderId: null,
@@ -14,15 +14,19 @@ export default (state = initialState, action) => {
       const addedItem = action.item;
       const itemPrice = addedItem.price;
       const itemBrand = addedItem.brand;
+      const orderItemId = addedItem.orderItemId;
+      const itemId = addedItem.itemId;
       console.log(`[cart reducer]: orderId=${orderId}, itemBrand=${itemBrand}`);
 
       // check if this item already in the cart
-      if (state.items[addedItem._id]) {
-        const updatedCart = new Cart(
-          state.items[addedItem._id].quantity + 1,
+      if (state.items[itemId]) {
+        const updatedCartItem = new CartItem(
+          state.items[itemId].quantity + 1,
+          orderItemId,
+          itemId,
           itemPrice,
           itemBrand,
-          state.items[addedItem._id].sum + itemPrice,
+          state.items[itemId].sum + itemPrice,
         );
 
         return {
@@ -30,19 +34,26 @@ export default (state = initialState, action) => {
           orderId,
           items: {
             ...state.items,
-            [addedItem._id]: updatedCart,
+            [itemId]: updatedCartItem,
           },
           totalPrice: state.totalPrice + itemPrice,
         };
       } else {
-        const newCart = new Cart(1, itemPrice, itemBrand, itemPrice);
+        const newCart = new CartItem(
+          1,
+          orderItemId,
+          itemId,
+          itemPrice,
+          itemBrand,
+          itemPrice,
+        );
 
         return {
           ...state,
           orderId,
           items: {
             ...state.items,
-            [addedItem._id]: newCart,
+            [itemId]: newCart,
           },
           totalPrice: state.totalPrice + itemPrice,
         };
@@ -56,8 +67,10 @@ export default (state = initialState, action) => {
 
       // check if this item need to reduce or remove
       if (selectedItemQuantity > 1) {
-        const updatedItem = new Cart(
+        const updatedItem = new CartItem(
           selectedItem.quantity - 1,
+          selectedItem.orderItemId,
+          selectedItem.itemId,
           selectedItem.itemPrice,
           selectedItem.itemBrand,
           selectedItem.sum - selectedItem.itemPrice,
