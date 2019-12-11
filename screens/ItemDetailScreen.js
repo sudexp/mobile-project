@@ -23,6 +23,7 @@ const ItemDetailScreen = ({ navigation }) => {
   const selectedItem = useSelector(state =>
     state.items.items.find(item => item._id === itemId),
   );
+  const token = useSelector(state => state.auth.user.token);
   console.log('[selectedItem]: ', selectedItem);
   // console.log('[image]: ', selectedItem.image);
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const ItemDetailScreen = ({ navigation }) => {
             color={Platform.OS === 'android' ? Colors.blue : Colors.orange}
             title="Add to Cart"
             onPress={() => {
-              dispatch(addToCart(selectedItem));
+              dispatch(addToCart(selectedItem, token));
             }}
           />
         </View>
